@@ -1,9 +1,9 @@
 import { Grid, Grow, Rating, Tooltip, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import useStyles from "./moviestyles";
+import useStyles from "./categoriesstyles";
 
-const CategoryCard = ({ movie, i }) => {
+const Movie = ({ movie, i }) => {
   const classes = useStyles();
 
   return (
@@ -32,4 +32,4 @@ const CategoryCard = ({ movie, i }) => {
   );
 };
 
-export default CategoryCard;
+export default Movie;

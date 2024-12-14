@@ -55,17 +55,16 @@ const NavBar = () => {
     <>
       <AppBar position="fixed">
         <Toolbar className={classes.toolbar}>
-          {isMobile && (
-            <IconButton
-              color="inherit"
-              edge="start"
-              style={{ outline: "none" }}
-              onClick={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
-              className={classes.menuButton}
-            >
-              <Menu />
-            </IconButton>
-          )}
+          <IconButton
+            color="inherit"
+            edge="start"
+            style={{ outline: "none" }}
+            onClick={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
+            className={classes.menuButton}
+          >
+            <Menu />
+          </IconButton>
+
           <IconButton
             color="inherit"
             sx={{ ml: 1 }}
@@ -104,30 +103,16 @@ const NavBar = () => {
         </Toolbar>
       </AppBar>
 
-      <div>
-        <nav className={classes.drawer}>
-          {isMobile ? (
-            <Drawer
-              variant="temporary"
-              anchor="right"
-              open={mobileOpen}
-              onClose={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
-              classes={{ paper: classes.drawerPaper }}
-              ModalProps={{ keepMounted: true }}
-            >
-              <Sidebar setMobileOpen={setMobileOpen} />
-            </Drawer>
-          ) : (
-            <Drawer
-              classes={{ paper: classes.drawerPaper }}
-              variant="permanent"
-              open
-            >
-              <Sidebar setMobileOpen={setMobileOpen} />
-            </Drawer>
-          )}
-        </nav>
-      </div>
+      <Drawer
+        variant="temporary"
+        anchor="left"
+        open={mobileOpen}
+        onClose={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
+        classes={{ paper: classes.drawerPaper }}
+        ModalProps={{ keepMounted: true }}
+      >
+        <Sidebar setMobileOpen={setMobileOpen} />
+      </Drawer>
     </>
   );
 };
