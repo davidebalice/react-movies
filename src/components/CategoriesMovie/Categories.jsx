@@ -1,32 +1,23 @@
 import { Box, CircularProgress } from "@mui/material";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Link } from "react-router-dom";
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useGetMoviesQuery } from "../../services/TMDB";
-import Movie from "../Movie/Movie";
-import CategoryCard from "../Movie/Movie";
+import { useGetGenresQuery } from "../../services/TMDB";
+import CategoryCard from "../CategoriesMovie/CategoryCard";
 
 const categories = [
-  { label: "Popular", value: "popular" },
-  { label: "Top Rated", value: "top_rated" },
-  { label: "Upcoming", value: "upcoming" },
+  { name: "Popular", value: "popular" },
+  { name: "Top Rated", value: "top_rated" },
+  { name: "Upcoming", value: "upcoming" },
 ];
 
 const Categories = () => {
-  const [page, setPage] = useState(1);
-  const { genreIdOrCategoryName, searchQuery } = useSelector(
-    (state) => state.currentGenreOrCategory
-  );
-
-  const { data, error, isFetching } = useGetMoviesQuery({
-    genreIdOrCategoryName,
-    page,
-    searchQuery,
-  });
+  const { data, isFetching } = useGetGenresQuery();
+  console.log("data");
+  console.log("data");
+  console.log("data");
   console.log(data);
 
   if (isFetching) {
@@ -37,13 +28,11 @@ const Categories = () => {
     );
   }
 
- 
-
   return (
     <Box sx={{ maxWidth: "100%", padding: 2 }}>
       <Swiper
         slidesPerView={6}
-        spaceBetween={16}
+        spaceBetween={40}
         navigation={true}
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         scrollbar={{ draggable: true }}
@@ -66,33 +55,16 @@ const Categories = () => {
           },
         }}
       >
-        
-        
-        
-        
-        
-        {categories.map(({ label, i }) => (
-           <SwiperSlide key={label.id}>
-           <CategoryCard key={i} movie={label} i={i} />
-         </SwiperSlide>
+        {categories.map(({ value, i }) => (
+          <SwiperSlide key={value.id}>
+            <CategoryCard key={i} value={value} i={i} type="category" id={null}/>
+          </SwiperSlide>
         ))}
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         {data &&
-          data.results.map((movie, i) => (
-            <SwiperSlide key={movie.id}>
-              <Movie key={i} movie={movie} i={i} />
+          data.genres.map(({ name, i, id }) => (
+            <SwiperSlide key={i}>
+              <CategoryCard key={i} value={name} i={i} type="genre" id={id}/>
             </SwiperSlide>
           ))}
       </Swiper>

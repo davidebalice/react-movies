@@ -1,35 +1,42 @@
-import { Grid, Grow, Rating, Tooltip, Typography } from "@mui/material";
+import { Grid, Grow } from "@mui/material";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
 import useStyles from "./categoriesstyles";
 
-const Movie = ({ movie, i }) => {
+const CategoryCard = ({ value, i, type, id }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   return (
-    <Grid item xs={12} sm={6} md={4} lg={3} xl={2} className={classes.movie}>
+    <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
       <Grow in key={i} timeout={(i + 1) * 250}>
-        <Link className={classes.links} to={`/movie/${movie.id}`}>
-          <img
-            className={classes.image}
-            src={
-              movie.poster_path
-                ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                : "https://i.ibb.co/ft4skBS/logored.png"
+        <Link
+          className={classes.links}
+          to={`/`}
+          onClick={() => {
+            if (type === "genre") {
+              dispatch(selectGenreOrCategory(id));
+            } else if (type === "category") {
+              dispatch(selectGenreOrCategory(value));
             }
-            alt={movie.title}
-          />
-          <Typography className={classes.title}>{movie.title}</Typography>
-
-          <Tooltip disableTouchListener title={`${movie.vote_average} / 10`}>
-            <div>
-              <Rating readOnly value={movie.vote_average / 2} precision={0.1} />
-            </div>
-          </Tooltip>
+          }}
+        >
+          <div
+            className={classes.container}
+            style={{
+              backgroundImage: `url('${
+                process.env.PUBLIC_URL
+              }/categories/${value.toLowerCase().replace(/\s+/g, "-")}.jpg')`,
+            }}
+          >
+            <div className={classes.title}>{value}</div>
+          </div>
         </Link>
       </Grow>
     </Grid>
   );
 };
 
-export default Movie;
+export default CategoryCard;
