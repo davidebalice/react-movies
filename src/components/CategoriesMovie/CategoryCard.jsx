@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
 import useStyles from "./categoriesstyles";
 
-const CategoryCard = ({ value, i, type, id }) => {
+const CategoryCard = ({ value, name, i, type, id }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -31,7 +31,9 @@ const CategoryCard = ({ value, i, type, id }) => {
               }/categories/${value.toLowerCase().replace(/\s+/g, "-")}.jpg')`,
             }}
           >
-            <div className={classes.title}>{value}</div>
+            <div className={classes.title}>
+              {type === "category" ? <>{name}</> : <>{value}</>}
+            </div>
           </div>
         </Link>
       </Grow>

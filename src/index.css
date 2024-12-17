@@ -11,10 +11,31 @@
   text-decoration: none;
 }
 
+@font-face {
+  font-family: "Ember";
+  src: url("./fonts/AmazonEmber_Rg.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "EmberCondensed";
+  src: url("./fonts/AmazonEmberCdRC_Rg.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "EmberCondensed";
+  overflow-x: hidden;
+}
+
 .swiper-button-prev,
 .swiper-button-next {
   position: absolute;
-  top: 50%;
+  top: 56%;
   transform: translateY(-50%);
   z-index: 10;
   pointer-events: auto;

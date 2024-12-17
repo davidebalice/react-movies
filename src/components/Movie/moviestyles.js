@@ -27,6 +27,12 @@ export default makeStyles((theme) => ({
     background: "rgba(0,0,0,0.7)",
     bottom: "-300px",
     height: "300px",
+    color: "white",
+    textAlign: "left",
+    padding: "30px",
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "column",
     transition: "bottom 0.3s ease-in-out",
   },
   imageContainer: {
@@ -39,29 +45,49 @@ export default makeStyles((theme) => ({
     "&:hover $data": {
       bottom: "0px",
     },
+    "&:hover $image": {
+      filter: "brightness(0.8)",
+      transform: "scale(1.05)",
+    },
   },
-
   image: {
     borderRadius: "20px",
     width: "100%",
     height: "auto",
+    transition: "filter 0.3s ease-in-out, transform 0.3s ease-in-out",
   },
-
-  /*
-  "&:hover": {
-      transform: "scale(1.05)",
-    },
-*/
-
   title: {
-    color: theme.palette.text.primary,
-    textOverflow: "ellipsis",
-    fontSize: "0.845rem",
-    width: "230px",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
+    fontFamily: "EmberCondensed !important",
+    fontSize: "1.4rem !important",
     marginTop: "10px",
-    marginBottom: 0,
-    textAlign: "center",
+    marginBottom: "10px",
+    fontWeight: "bold !important ",
+  },
+  overview: {
+    fontFamily: "EmberCondensed !important",
+    fontSize: "1.0rem !important",
+    marginTop: "10px",
+    marginBottom: "10px",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    display: "-webkit-box",
+    WebkitBoxOrient: "vertical",
+    WebkitLineClamp: 3,
+    maxHeight: "4.5em",
+    lineHeight: "1.5em",
+  },
+  rating: {
+    display: "flex",
+  },
+  button: {
+    fontFamily: "EmberCondensed !important",
+    fontSize: "1.0rem !important",
+    color: "white !important",
+    fontWeight: "bold !important",
+    background: "rgba(255,255,255,0.2) !important",
+    "&:hover": {
+      background: "rgba(255,255,255,0.7) !important",
+      color: "black !important",
+    },
   },
 }));

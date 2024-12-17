@@ -15,10 +15,6 @@ const categories = [
 
 const Categories = () => {
   const { data, isFetching } = useGetGenresQuery();
-  console.log("data");
-  console.log("data");
-  console.log("data");
-  console.log(data);
 
   if (isFetching) {
     return (
@@ -55,9 +51,9 @@ const Categories = () => {
           },
         }}
       >
-        {categories.map(({ value, i }) => (
+        {categories.map(({ value, name, i }) => (
           <SwiperSlide key={value.id}>
-            <CategoryCard key={i} value={value} i={i} type="category" id={null}/>
+            <CategoryCard key={i} value={value} name={name} i={i} type="category" id={null}/>
           </SwiperSlide>
         ))}
 

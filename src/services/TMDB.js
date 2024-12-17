@@ -37,27 +37,27 @@ export const tmdbApi = createApi({
         }
     }),
 
-    // Get Movie Details 
+    // Get Movie Details
     getMovie: builder.query({
         query: (id) => `/movie/${id}?append_to_response=videos,credits&api_key=${tmdbApiKey}`
     }),
 
-     // Get  Recommendation Movies 
+     // Get  Recommendation Movies
      getRecommendations: builder.query({
         query: ({ movie_id, list }) => `/movie/${movie_id}/${list}?api_key=${tmdbApiKey}`
     }),
 
-    // Get Actor Details 
+    // Get Actor Details
     getActorsDetails: builder.query({
         query: ( id ) => `/person/${id}?api_key=${tmdbApiKey}`
     }),
 
-    // Get Actor Movie List 
+    // Get Actor Movie List
     getMoviesByActorId: builder.query({
         query: ( { id, page} ) => `/discover/movie?with_cast=${id}&page=${page}&api_key=${tmdbApiKey}`
     }),
 
-     // Get User Favarate Specific list 
+     // Get User Favarate Specific list
      getList: builder.query({
         query: ( { listName, accountId, sessionId, page } ) => `/account/${accountId}/${listName}?api_key=${tmdbApiKey}&session_id=${sessionId}&page=${page}`
     }),

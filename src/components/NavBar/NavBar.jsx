@@ -1,4 +1,4 @@
-import { Brightness4, Brightness7, Menu } from "@mui/icons-material";
+import { Brightness4, Brightness7, GridView, Menu } from "@mui/icons-material";
 import {
   AppBar,
   Drawer,
@@ -8,8 +8,10 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import React, { useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser, userSelector } from "../../features/auth";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import logo from "../../assets/images/logo_white.png";
+import { setUser } from "../../features/auth";
 import { createSessionId, moviesApi } from "../../utils";
 import { ColorModeContext } from "../../utils/ToggleColorMode";
 import Search from "../Search/Search";
@@ -21,7 +23,7 @@ const NavBar = () => {
   const isMobile = useMediaQuery("(max-width:600px)");
   const theme = useTheme();
 
-  const { isAuthenticated, user } = useSelector(userSelector);
+  //const { isAuthenticated, user } = useSelector(userSelector);
 
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -53,25 +55,41 @@ const NavBar = () => {
 
   return (
     <>
-      <AppBar position="fixed">
+      <AppBar position="fixed" className={classes.appbar}>
         <Toolbar className={classes.toolbar}>
-          <IconButton
-            color="inherit"
-            edge="start"
-            style={{ outline: "none" }}
-            onClick={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
-            className={classes.menuButton}
-          >
-            <Menu />
-          </IconButton>
+          <div className={classes.buttons}>
+            <img src={logo} alt="davide balice logo" className={classes.logo} />
 
-          <IconButton
-            color="inherit"
-            sx={{ ml: 1 }}
-            onClick={colorMode.toggleColorMode}
-          >
-            {theme.palette.mode === "dark" ? <Brightness7 /> : <Brightness4 />}
-          </IconButton>
+            <IconButton
+              color="inherit"
+              edge="start"
+              style={{ outline: "none" }}
+              component={Link}
+              to={`/`}
+              className={classes.homeButton}
+            >
+              <GridView />
+            </IconButton>
+
+            <IconButton
+              color="inherit"
+              edge="start"
+              style={{ outline: "none" }}
+              onClick={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
+              className={classes.menuButton}
+            >
+              <Menu style={{ fontSize: "34px",maxWidth:"30px" }} />
+            </IconButton>
+
+            <IconButton color="inherit" onClick={colorMode.toggleColorMode}>
+              {theme.palette.mode === "dark" ? (
+                <Brightness7 />
+              ) : (
+                <Brightness4 />
+              )}
+            </IconButton>
+          </div>
+
           {!isMobile && <Search />}
 
           {/*

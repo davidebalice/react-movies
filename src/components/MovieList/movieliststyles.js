@@ -1,7 +1,5 @@
 import { makeStyles } from "@mui/styles";
 
-const drawerWidth = 240;
-
 export default makeStyles((theme) => ({
   moviesContainer: {
     display: "flex",
@@ -14,9 +12,9 @@ export default makeStyles((theme) => ({
   },
   moviesContainer: {
     overflow: "scroll",
-    scrollbarWidth: "none", // Firefox
+    scrollbarWidth: "none",
     "&::-webkit-scrollbar": {
-      display: "none", // Chrome, safari and opera
+      display: "none",
     },
   },
 }));

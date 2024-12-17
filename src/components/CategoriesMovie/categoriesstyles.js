@@ -1,7 +1,5 @@
 import { makeStyles } from "@mui/styles";
 
-const drawerWidth = 240;
-
 export default makeStyles((theme) => ({
   links: {
     alignItems: "center",
@@ -36,20 +34,20 @@ export default makeStyles((theme) => ({
       height: "220px",
     },
   },
-
   title: {
-    color: theme.palette.text.primary,
+    color: "white",
     textOverflow: "ellipsis",
     borderRadius: "20px",
     position: "absolute",
-    fontSize: "0.845rem",
+    fontFamily: "EmberCondensed",
+    fontSize: "2.0rem",
     pointerEvents: "none",
     width: "100%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     height: "100%",
-    background: "rgba(0,0,0,0.7)",
+    background: "rgba(0,0,0,0.6)",
     whiteSpace: "nowrap",
     overflow: "hidden",
     textAlign: "center",
