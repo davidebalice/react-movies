@@ -28,7 +28,7 @@
 body {
   padding: 0;
   margin: 0;
-  font-family: "EmberCondensed";
+  font-family: "EmberCondensed !important";
   overflow-x: hidden;
 }
 

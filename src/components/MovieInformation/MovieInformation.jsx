@@ -119,7 +119,7 @@ const MovieInformation = () => {
   }
 
   return (
-    <Grid container className={classes.containerSpaceAround}>
+    <Grid container className={classes.container}>
       <Grid
         item
         sm={12}
@@ -132,26 +132,27 @@ const MovieInformation = () => {
           alt="{ data?.title }"
         />
       </Grid>
-      <Grid item container direction="column" lg={7}>
-        <Typography variant="h4" align="center" gutterBottom>
+      <Grid item container direction="column" lg={7}  >
+        <Typography variant="h4" align="left" gutterBottom className={classes.font} mt={2}>
           {data?.title} ({data.release_date.split("-")[0]})
         </Typography>
-        <Typography variant="h5" align="center" gutterBottom>
+        <Typography variant="h5" align="left" gutterBottom className={classes.font}>
           {data?.tagline}
         </Typography>
 
-        <Grid item className={classes.containerSpaceAround}>
+        <Grid item className={classes.containerData}>
           <Box display="flex" align="center">
             <Rating readOnly value={data.vote_average / 2} />
             <Typography
               variant="subtitle1"
               gutterBottom
+              className={classes.font}
               style={{ marginLeft: "10px" }}
             >
               {data?.vote_average} / 10
             </Typography>
           </Box>
-          <Typography align="center" gutterBottom style={{ fontSize: "16px" }}>
+          <Typography align="left" gutterBottom style={{ fontSize: "16px" }} className={classes.font}>
             {data?.runtime}min | Language: {data?.spoken_languages[0].name}
           </Typography>
         </Grid>
@@ -167,23 +168,23 @@ const MovieInformation = () => {
               <img
                 src={genreIcons[genre.name.toLowerCase()]}
                 className={classes.genreImage}
-                height={30}
+                height={20}
               />
-              <Typography color="textPrimary" variant="subtitle1">
+              <Typography color="textPrimary" variant="subtitle1" className={classes.font}>
                 {genre?.name}
               </Typography>
             </Link>
           ))}
         </Grid>
 
-        <Typography variant="h5" gutterBottom style={{ marginTop: "10px" }}>
+        <Typography variant="h5" gutterBottom style={{ marginTop: "10px" }} className={classes.font}>
           OverView
         </Typography>
-        <Typography style={{ marginBottom: "2rem" }}>
+        <Typography style={{ marginBottom: "2rem" }} className={classes.font}>
           {data?.overview}
         </Typography>
 
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h5" gutterBottom className={classes.font}>
           Top Cast
         </Typography>
         <Grid item container spacing={2}>
@@ -206,10 +207,10 @@ const MovieInformation = () => {
                         src={`https://image.tmdb.org/t/p/w500/${character.profile_path}`}
                         alt={character.className}
                       />
-                      <Typography color="textPrimary">
+                      <Typography color="textPrimary" className={classes.font}>
                         {character.name}
                       </Typography>
-                      <Typography color="textSecondary">
+                      <Typography color="textSecondary" className={classes.font}>
                         {character.character.split("/")[0]}
                       </Typography>
                     </Grid>
@@ -312,7 +313,6 @@ const MovieInformation = () => {
           <iframe
             autoPlay
             className={classes.video}
-            frameBorder="0"
             title="Trailer"
             src={`https://www.youtube.com/embed/${data.videos.results[0].key}`}
             allow="autoPlay"

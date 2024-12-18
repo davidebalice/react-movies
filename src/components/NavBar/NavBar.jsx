@@ -1,4 +1,11 @@
-import { Brightness4, Brightness7, GridView, Menu } from "@mui/icons-material";
+import {
+  Brightness4,
+  Brightness7,
+  GitHub,
+  GridView,
+  Info,
+  Menu,
+} from "@mui/icons-material";
 import {
   AppBar,
   Drawer,
@@ -14,6 +21,7 @@ import logo from "../../assets/images/logo_white.png";
 import { setUser } from "../../features/auth";
 import { createSessionId, moviesApi } from "../../utils";
 import { ColorModeContext } from "../../utils/ToggleColorMode";
+import InfoModal from "../Info/InfoModal";
 import Search from "../Search/Search";
 import Sidebar from "../Sidebar/Sidebar";
 import useStyles from "./navstyles";
@@ -22,7 +30,9 @@ const NavBar = () => {
   const classes = useStyles();
   const isMobile = useMediaQuery("(max-width:600px)");
   const theme = useTheme();
-
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   //const { isAuthenticated, user } = useSelector(userSelector);
 
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -30,7 +40,6 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("request_token");
   const sessionIdFromLocalStorage = localStorage.getItem("session_id");
-
   const colorMode = useContext(ColorModeContext);
 
   useEffect(() => {
@@ -57,9 +66,9 @@ const NavBar = () => {
     <>
       <AppBar position="fixed" className={classes.appbar}>
         <Toolbar className={classes.toolbar}>
+          <InfoModal open={open} handleClose={handleClose}/>
+          <img src={logo} alt="davide balice logo" className={classes.logo} />
           <div className={classes.buttons}>
-            <img src={logo} alt="davide balice logo" className={classes.logo} />
-
             <IconButton
               color="inherit"
               edge="start"
@@ -70,7 +79,6 @@ const NavBar = () => {
             >
               <GridView />
             </IconButton>
-
             <IconButton
               color="inherit"
               edge="start"
@@ -78,15 +86,40 @@ const NavBar = () => {
               onClick={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
               className={classes.menuButton}
             >
-              <Menu style={{ fontSize: "34px",maxWidth:"30px" }} />
+              <Menu style={{ fontSize: "34px", maxWidth: "30px" }} />
             </IconButton>
-
-            <IconButton color="inherit" onClick={colorMode.toggleColorMode}>
+            <IconButton
+              color="inherit"
+              onClick={colorMode.toggleColorMode}
+              className={classes.homeButton}
+            >
               {theme.palette.mode === "dark" ? (
                 <Brightness7 />
               ) : (
                 <Brightness4 />
               )}
+            </IconButton>
+            <IconButton
+              color="inherit"
+              edge="start"
+              style={{ outline: "none" }}
+              onClick={() => {
+                handleOpen();
+              }}
+              className={classes.homeButton}
+            >
+              <Info />
+            </IconButton>
+            <IconButton
+              color="inherit"
+              edge="start"
+              style={{ outline: "none" }}
+              href="https://github.com/davidebalice/react-movies"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={classes.homeButton}
+            >
+              <GitHub />
             </IconButton>
           </div>
 

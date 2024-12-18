@@ -4,6 +4,7 @@ export default makeStyles((theme) => ({
   root: {
     display: "flex",
     height: "100%",
+    fontFamily: "EmberCondensed !important",
   },
   content: {
     flexGrow: 1,

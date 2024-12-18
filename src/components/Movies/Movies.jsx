@@ -1,20 +1,27 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
 import "swiper/css";
 import "swiper/css/navigation";
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { useGetMoviesQuery } from "../../services/TMDB";
+import CategoriesMovie from "../CategoriesMovie/Categories";
 import FeaturedMovie from "../FeaturedMovie/FeaturedMovie";
 import MovieList from "../MovieList/MovieList";
 import MoviePagination from "../Pagination/Pagination";
-import CategoriesMovie from "../CategoriesMovie/Categories";
 
 const Movies = () => {
   const [numberOfMovies, setNumberOfMovies] = useState(20);
+  const [shouldFetchTrailers, setShouldFetchTrailers] = useState(false);
+  const [movieIds, setMovieIds] = useState([]);
+  const [trailers, setTrailers] = useState([]);
+  const [trailerLoading, setTrailerLoading] = useState(true);
+  const tmdbApiKey = process.env.REACT_APP_TMDB_KEY;
+  const { data: moviesData } = useGetMoviesQuery({ page: 1 });
+
   const [page, setPage] = useState(1);
   const { genreIdOrCategoryName, searchQuery } = useSelector(
     (state) => state.currentGenreOrCategory
@@ -25,6 +32,52 @@ const Movies = () => {
     page,
     searchQuery,
   });
+
+  const getTrailers = async () => {
+    const trailerPromises = movieIds.slice(0, 10).map((id) => {
+      return axios
+        .get(
+          `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${tmdbApiKey}`
+        )
+        .then((response) => {
+          const firstTrailer = response.data.results[0];
+          return firstTrailer
+            ? {
+                id: firstTrailer.id,
+                key: firstTrailer.key,
+                name: firstTrailer.name,
+                site: firstTrailer.site,
+              }
+            : null;
+        })
+        .catch((error) => ({
+          movieId: id,
+          trailers: [],
+        }));
+    });
+
+    try {
+      const trailersData = await Promise.all(trailerPromises);
+      setTrailers(trailersData);
+    } catch (error) {
+      console.error("Error fetching trailers:", error);
+    } finally {
+      setTrailerLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (moviesData) {
+      const ids = moviesData.results.map((movie) => movie.id);
+      setMovieIds(ids);
+    }
+  }, [moviesData]);
+
+  useEffect(() => {
+    if (movieIds.length >= 1 && trailerLoading) {
+      getTrailers();
+    }
+  }, [movieIds]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -63,6 +116,8 @@ const Movies = () => {
     );
   }
 
+  console.log(trailers);
+
   if (error) return "An Error Has Occured.";
 
   return (
@@ -90,6 +145,30 @@ const Movies = () => {
       </Swiper>
       <CategoriesMovie movies={data} />
       <MovieList movies={data} numberOfMovies={numberOfMovies} />
+
+      <div>
+        {trailers.map((trailer) => (
+          <div key={trailer.id}>
+            <h3>Movie ID: {trailer.id}</h3>
+
+            <img
+              src={`https://i.ytimg.com/vi/${trailer.key}/hqdefault.jpg`}
+              alt="YouTube Thumbnail"
+            />
+
+            <iframe
+              key={trailer.id}
+              width="560"
+              height="315"
+              src={`https://www.youtube.com/embed/${trailer.key}`}
+              title={trailer.name}
+              allow="autoplay; encrypted-media; fullscreen"
+              allowFullScreen
+            ></iframe>
+          </div>
+        ))}
+      </div>
+
       <MoviePagination
         currentPage={page}
         setPage={setPage}
