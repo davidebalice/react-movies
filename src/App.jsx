@@ -1,5 +1,5 @@
 import { CssBaseline } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UseAlan from "./Alan";
 import Actors from "./components/Actors/Actors";
@@ -21,13 +21,15 @@ const App = () => {
         <NavBar />
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Routes>
-            <Route path="/movie/:id" element={<MovieInformation />} />
-            <Route path="/" element={<Movies />} />
-            <Route path="/approved" element={<Movies />} />
-            <Route path="/actors/:id" element={<Actors />} />
-            <Route path="/profile/:id" element={<Profile />} />
-          </Routes>
+          <div className={classes.container}>
+            <Routes>
+              <Route path="/movie/:id" element={<MovieInformation />} />
+              <Route path="/" element={<Movies />} />
+              <Route path="/approved" element={<Movies />} />
+              <Route path="/actors/:id" element={<Actors />} />
+              <Route path="/profile/:id" element={<Profile />} />
+            </Routes>
+          </div>
           <Footer />
         </main>
         <div ref={alanBtnContainer} />

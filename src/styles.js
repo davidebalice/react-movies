@@ -6,6 +6,9 @@ export default makeStyles((theme) => ({
     height: "100%",
     fontFamily: "EmberCondensed !important",
   },
+  container: {
+    minHeight: "calc(100vh - 100px)",
+  },
   content: {
     flexGrow: 1,
     transition: "width 0.4s",

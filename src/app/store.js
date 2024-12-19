@@ -10,6 +10,6 @@ export default configureStore({
         user: userReducer
     },
 
-    middleware: (getDefaultMiddleware) => 
+    middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(tmdbApi.middleware),
 })

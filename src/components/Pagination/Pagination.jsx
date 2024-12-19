@@ -5,15 +5,24 @@ import useStyles from "./pagistyles";
 const Pagination = ({ currentPage, setPage, totalPages }) => {
   const classes = useStyles();
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   const handlePrev = () => {
     if (currentPage !== 1) {
       setPage((prevPage) => prevPage - 1);
+      scrollToTop();
     }
   };
 
   const handleNext = () => {
     if (currentPage !== totalPages) {
       setPage((prevPage) => prevPage + 1);
+      scrollToTop();
     }
   };
 

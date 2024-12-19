@@ -24,14 +24,14 @@ export const fetchToken = async () => {
     }
 
 };
- /// End Method 
+
 export const createSessionId = async () => {
     const token = localStorage.getItem('request_token');
 
     if (token) {
         try {
             const {data: {session_id}} = await moviesApi.post('authentication/session/new',{
-                request_token: token, 
+                request_token: token,
             });
             localStorage.setItem('session_id',session_id);
             return session_id;
@@ -42,5 +42,3 @@ export const createSessionId = async () => {
         }
     }
 }
-
- /// End Method 

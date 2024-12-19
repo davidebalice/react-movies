@@ -1,11 +1,7 @@
 import {
   ArrowBack,
-  Favorite,
-  FavoriteBorderOutlined,
   Language,
   Movie as MovieIcon,
-  PlusOne,
-  Remove,
   Theaters,
 } from "@mui/icons-material";
 import {
@@ -132,11 +128,94 @@ const MovieInformation = () => {
           alt="{ data?.title }"
         />
       </Grid>
-      <Grid item container direction="column" lg={7}  >
-        <Typography variant="h4" align="left" gutterBottom className={classes.font} mt={2}>
+      <Grid item container direction="column" lg={7}>
+        <Grid item container style={{ marginTop: "2rem" }}>
+          <div className={classes.buttonsContainer}>
+            <Grid item xs={12} sm={6} className={classes.buttonsContainer}>
+              <ButtonGroup size="small" variant="outlined">
+                <Button startIcon={<ArrowBack />} className={classes.button}>
+                  <Typography
+                    style={{ textDecoration: "none" }}
+                    component={Link}
+                    to="/"
+                    color="inherit"
+                    variant="subtitle2"
+                    style={{marginTop:"4px"}}
+                    className={classes.font}
+                  >
+                    Back
+                  </Typography>
+                </Button>
+
+                <Button
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={data?.homepage}
+                  className={classes.button}
+                  startIcon={<Language />}
+                >
+                  <Typography
+                    color="inherit"
+                    variant="subtitle2"
+                    className={classes.font}
+                    style={{marginTop:"4px"}}
+                  >
+                    Website
+                  </Typography>
+                </Button>
+
+                <Button
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={classes.button}
+                  href={`https://www.imdb.com/title/${data?.imdb_id}`}
+                  startIcon={<MovieIcon />}
+                >
+                  <Typography
+                    color="inherit"
+                    variant="subtitle2"
+                    style={{marginTop:"4px"}}
+                    className={classes.font}
+                  >
+                    IMDB
+                  </Typography>
+                </Button>
+
+                <Button
+                  onClick={() => setOpen(true)}
+                  href="#"
+                  className={classes.button}
+                  startIcon={<Theaters />}
+                >
+                  <Typography
+                    color="inherit"
+                    variant="subtitle2"
+                    style={{marginTop:"4px"}}
+                    className={classes.font}
+                  >
+                    Trailer{" "}
+                  </Typography>
+                </Button>
+              </ButtonGroup>
+            </Grid>
+          </div>
+        </Grid>
+
+        <Typography
+          variant="h4"
+          align="left"
+          gutterBottom
+          className={classes.font}
+          mt={2}
+        >
           {data?.title} ({data.release_date.split("-")[0]})
         </Typography>
-        <Typography variant="h5" align="left" gutterBottom className={classes.font}>
+        <Typography
+          variant="h5"
+          align="left"
+          gutterBottom
+          className={classes.font}
+        >
           {data?.tagline}
         </Typography>
 
@@ -152,8 +231,13 @@ const MovieInformation = () => {
               {data?.vote_average} / 10
             </Typography>
           </Box>
-          <Typography align="left" gutterBottom style={{ fontSize: "16px" }} className={classes.font}>
-            {data?.runtime}min | Language: {data?.spoken_languages[0].name}
+          <Typography
+            align="left"
+            gutterBottom
+            style={{ fontSize: "16px" }}
+            className={classes.font}
+          >
+            {data?.runtime}min - Language: {data?.spoken_languages[0].name}
           </Typography>
         </Grid>
 
@@ -169,127 +253,87 @@ const MovieInformation = () => {
                 src={genreIcons[genre.name.toLowerCase()]}
                 className={classes.genreImage}
                 height={20}
+                alt={genreIcons[genre.name.toLowerCase()]}
               />
-              <Typography color="textPrimary" variant="subtitle1" className={classes.font}>
+              <Typography
+                color="textPrimary"
+                variant="subtitle1"
+                className={classes.font}
+              >
                 {genre?.name}
               </Typography>
             </Link>
           ))}
         </Grid>
 
-        <Typography variant="h5" gutterBottom style={{ marginTop: "10px" }} className={classes.font}>
+        <Typography
+          variant="h5"
+          gutterBottom
+          style={{ marginTop: "10px" }}
+          className={classes.font}
+        >
           OverView
         </Typography>
-        <Typography style={{ marginBottom: "2rem" }} className={classes.font}>
+        <Typography
+          style={{ marginBottom: "2rem", fontSize: "19px" }}
+          className={classes.font}
+        >
           {data?.overview}
         </Typography>
 
-        <Typography variant="h5" gutterBottom className={classes.font}>
-          Top Cast
-        </Typography>
-        <Grid item container spacing={2}>
-          {data &&
-            data.credits.cast
-              .map(
-                (character, i) =>
-                  character.profile_path && (
-                    <Grid
-                      item
-                      key={i}
-                      xs={4}
-                      md={2}
-                      component={Link}
-                      to={`/actors/${character.id}`}
-                      style={{ textDecoration: "none" }}
-                    >
-                      <img
-                        className={classes.castImage}
-                        src={`https://image.tmdb.org/t/p/w500/${character.profile_path}`}
-                        alt={character.className}
-                      />
-                      <Typography color="textPrimary" className={classes.font}>
-                        {character.name}
-                      </Typography>
-                      <Typography color="textSecondary" className={classes.font}>
-                        {character.character.split("/")[0]}
-                      </Typography>
-                    </Grid>
-                  )
-              )
-              .slice(0, 6)}
-        </Grid>
-
-        <Grid item container style={{ marginTop: "2rem" }}>
-          <div className={classes.buttonsContainer}>
-            <Grid item xs={12} sm={6} className={classes.buttonsContainer}>
-              <ButtonGroup size="small" variant="outlined">
-                <Button
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={data?.homepage}
-                  endIcon={<Language />}
-                >
-                  {" "}
-                  Website{" "}
-                </Button>
-
-                <Button
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={`https://www.imdb.com/title/${data?.imdb_id}`}
-                  endIcon={<MovieIcon />}
-                >
-                  {" "}
-                  IMDB{" "}
-                </Button>
-
-                <Button
-                  onClick={() => setOpen(true)}
-                  href="#"
-                  endIcon={<Theaters />}
-                >
-                  {" "}
-                  Trailer{" "}
-                </Button>
-              </ButtonGroup>
-            </Grid>
-
-            <Grid item xs={12} sm={6} className={classes.buttonsContainer}>
-              <ButtonGroup size="medium" variant="outlined">
-                <Button
-                  onClick={addToFavorites}
-                  endIcon={
-                    isMovieFavorited ? <FavoriteBorderOutlined /> : <Favorite />
-                  }
-                >
-                  {isMovieFavorited ? "Unfavorite" : "Favorite"}
-                </Button>
-
-                <Button
-                  onClick={addToWatchlist}
-                  endIcon={isMovieWatchlisted ? <Remove /> : <PlusOne />}
-                >
-                  Watchlist
-                </Button>
-
-                <Button
-                  endIcon={<ArrowBack />}
-                  sx={{ borderColor: "primary.main" }}
-                >
-                  <Typography
-                    style={{ textDecoration: "none" }}
-                    component={Link}
-                    to="/"
-                    color="inherit"
-                    variant="subtitle2"
-                  >
-                    Back
-                  </Typography>
-                </Button>
-              </ButtonGroup>
-            </Grid>
-          </div>
-        </Grid>
+        <div className={classes.castContainer}>
+          <Typography
+            variant="h5"
+            gutterBottom
+            className={classes.castContainerTitle}
+          >
+            Top Cast
+          </Typography>
+          <Grid
+            item
+            container
+            spacing={2}
+            className={classes.castContainerBody}
+          >
+            {data &&
+              data.credits.cast
+                .map(
+                  (character, i) =>
+                    character.profile_path && (
+                      <Grid
+                        item
+                        key={i}
+                        xs={4}
+                        md={2}
+                        component={Link}
+                        to={`/actors/${character.id}`}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <div className={classes.actor}>
+                          <img
+                            className={classes.castImage}
+                            src={`https://image.tmdb.org/t/p/w500/${character.profile_path}`}
+                            alt={character.className}
+                          />
+                          <Typography
+                            color="textPrimary"
+                            className={classes.font2}
+                          >
+                            {character.name}
+                          </Typography>
+                          <Typography
+                            color="textSecondary"
+                            className={classes.font2}
+                          >
+                            {character.character.split("/")[0]}
+                          </Typography>
+                        </div>
+                      </Grid>
+                    )
+                )
+                .slice(0, 6)}
+          </Grid>
+        </div>
       </Grid>
 
       <Box marginTop="5rem" width="100%">

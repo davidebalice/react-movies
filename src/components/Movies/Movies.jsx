@@ -12,10 +12,10 @@ import CategoriesMovie from "../CategoriesMovie/Categories";
 import FeaturedMovie from "../FeaturedMovie/FeaturedMovie";
 import MovieList from "../MovieList/MovieList";
 import MoviePagination from "../Pagination/Pagination";
+import Trailers from "../Trailers/Trailers";
 
 const Movies = () => {
   const [numberOfMovies, setNumberOfMovies] = useState(20);
-  const [shouldFetchTrailers, setShouldFetchTrailers] = useState(false);
   const [movieIds, setMovieIds] = useState([]);
   const [trailers, setTrailers] = useState([]);
   const [trailerLoading, setTrailerLoading] = useState(true);
@@ -130,45 +130,26 @@ const Movies = () => {
         scrollbar={{ draggable: true }}
         pagination={{ clickable: true }}
       >
-        <SwiperSlide key="featured1">
+        <SwiperSlide key="featured0">
           <FeaturedMovie movie={data.results[0]} />
         </SwiperSlide>
-        <SwiperSlide key="featured2">
+        <SwiperSlide key="featured1">
           <FeaturedMovie movie={data.results[1]} />
         </SwiperSlide>
-        <SwiperSlide key="featured3">
+        <SwiperSlide key="featured2">
           <FeaturedMovie movie={data.results[2]} />
         </SwiperSlide>
-        <SwiperSlide key="featured4">
+        <SwiperSlide key="featured3">
           <FeaturedMovie movie={data.results[3]} />
+        </SwiperSlide>
+        <SwiperSlide key="featured4">
+          <FeaturedMovie movie={data.results[4]} />
         </SwiperSlide>
       </Swiper>
       <CategoriesMovie movies={data} />
       <MovieList movies={data} numberOfMovies={numberOfMovies} />
-
-      <div>
-        {trailers.map((trailer) => (
-          <div key={trailer.id}>
-            <h3>Movie ID: {trailer.id}</h3>
-
-            <img
-              src={`https://i.ytimg.com/vi/${trailer.key}/hqdefault.jpg`}
-              alt="YouTube Thumbnail"
-            />
-
-            <iframe
-              key={trailer.id}
-              width="560"
-              height="315"
-              src={`https://www.youtube.com/embed/${trailer.key}`}
-              title={trailer.name}
-              allow="autoplay; encrypted-media; fullscreen"
-              allowFullScreen
-            ></iframe>
-          </div>
-        ))}
-      </div>
-
+      <Trailers trailers={trailers} />
+      
       <MoviePagination
         currentPage={page}
         setPage={setPage}

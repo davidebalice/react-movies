@@ -1,7 +1,6 @@
 import {
   Box,
   CircularProgress,
-  Divider,
   List,
   ListItem,
   ListItemIcon,
@@ -50,10 +49,8 @@ const Sidebar = ({ setMobileOpen }) => {
         />
       </Link>
 
-      <Divider />
-
       <List>
-        <ListSubheader>Categories </ListSubheader>
+        <ListSubheader className={classes.font}>Categories </ListSubheader>
         {categories.map(({ label, value }) => (
           <Link key={value} className={classes.links} to="/">
             <ListItem
@@ -64,19 +61,21 @@ const Sidebar = ({ setMobileOpen }) => {
                 <img
                   src={genreIcons[label.toLowerCase()]}
                   className={classes.genreImage}
-                  height={30}
+                  height={20}
+                  alt={genreIcons[label.toLowerCase()]}
                 />
               </ListItemIcon>
-              <ListItemText primary={label} />
+              <ListItemText
+                primary={label}
+                classes={{ primary: classes.font }}
+              />
             </ListItem>
           </Link>
         ))}
       </List>
 
-      <Divider />
-
       <List>
-        <ListSubheader>Genres </ListSubheader>
+        <ListSubheader className={classes.font}>Genres </ListSubheader>
         {isFetching ? (
           <Box display="flex" justifyContent="center">
             <CircularProgress />
@@ -92,10 +91,14 @@ const Sidebar = ({ setMobileOpen }) => {
                   <img
                     src={genreIcons[name.toLowerCase()]}
                     className={classes.genreImage}
-                    height={30}
+                    height={20}
+                    alt={genreIcons[name.toLowerCase()]}
                   />
                 </ListItemIcon>
-                <ListItemText primary={name} />
+                <ListItemText
+                  primary={name}
+                  classes={{ primary: classes.font }}
+                />
               </ListItem>
             </Link>
           ))
