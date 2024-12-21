@@ -14,10 +14,16 @@ export default makeStyles((theme) => ({
     justifyContent: "start",
     margin: "10px 0 !important",
     marginTop: "100px !important",
-    fontFamily: "EmberCondensed !important",
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
       flexWrap: "wrap",
+      padding: "10px",
+    },
+    [theme.breakpoints.down("md")]: {
+      padding: "10px",
+    },
+    [theme.breakpoints.down("lg")]: {
+      padding: "10px",
     },
   },
   containerData: {
@@ -26,7 +32,6 @@ export default makeStyles((theme) => ({
     justifyContent: "start",
     alignItems: "start",
     marginTop: "10px !important",
-    fontFamily: "EmberCondensed !important",
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
       flexWrap: "wrap",
@@ -36,20 +41,21 @@ export default makeStyles((theme) => ({
     borderRadius: "20px",
     boxShadow: "0.5em 1em 1em rgb(64,64,70)",
     width: "90%",
-    margin: "0 auto",
+    height: "auto !important",
+    margin: "0 auto !important",
     [theme.breakpoints.down("md")]: {
-      width: "50%",
+      width: "80%",
     },
     [theme.breakpoints.down("sm")]: {
-      width: "100%",
-      height: "250px",
+      width: "90%",
+      margin: "0 auto",
       marginBottom: "30px",
+      display:"flex"
     },
   },
   genresContainer: {
     margin: "10px 0 !important",
     display: "flex",
-    fontFamily: "EmberCondensed !important",
     justifyContent: "start",
     gap: "20px",
     flexWrap: "wrap",
@@ -78,7 +84,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     width: "100%",
-    marginBottom:"20px",
+    marginBottom: "20px",
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
     },
@@ -104,8 +110,7 @@ export default makeStyles((theme) => ({
     fontFamily: "EmberCondensed !important",
   },
   castContainerBody: {
-    padding: "12px",
-    paddingBottom: "0",
+    padding: "12px 10px 0 0",
   },
   actor: {
     background: theme.palette.mode === "dark" ? "#333" : "#e1e1e1",
@@ -123,12 +128,16 @@ export default makeStyles((theme) => ({
     background:
       theme.palette.mode === "dark" ? "#333 !important" : "#e1e1e1 !important",
     border: "none !important",
-    color: theme.palette.mode === "dark" ? "#fff !important" : "#222 !important",
-    padding:"10px 20px !important",
+    color:
+      theme.palette.mode === "dark" ? "#fff !important" : "#222 !important",
+    padding: "10px 20px !important",
     display: "flex",
     alignItems: "center",
     "&:hover": {
-      background: theme.palette.mode === "dark" ? "#222 !important" : "#d1d1d1 !important",
+      background:
+        theme.palette.mode === "dark"
+          ? "#222 !important"
+          : "#d1d1d1 !important",
     },
   },
 }));

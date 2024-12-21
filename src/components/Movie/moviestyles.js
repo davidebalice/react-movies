@@ -55,14 +55,12 @@ export default makeStyles((theme) => ({
     transition: "filter 0.3s ease-in-out, transform 0.3s ease-in-out",
   },
   title: {
-    fontFamily: "EmberCondensed !important",
     fontSize: "1.4rem !important",
     marginTop: "10px",
     marginBottom: "10px",
     fontWeight: "bold !important ",
   },
   overview: {
-    fontFamily: "EmberCondensed !important",
     fontSize: "1.0rem !important",
     marginTop: "10px",
     marginBottom: "10px",
@@ -78,7 +76,6 @@ export default makeStyles((theme) => ({
     display: "flex",
   },
   button: {
-    fontFamily: "EmberCondensed !important",
     fontSize: "1.0rem !important",
     color: "white !important",
     fontWeight: "bold !important",

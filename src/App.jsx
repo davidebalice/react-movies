@@ -1,7 +1,6 @@
 import { CssBaseline } from "@mui/material";
 import React, { useRef } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import UseAlan from "./Alan";
 import Actors from "./components/Actors/Actors";
 import Footer from "./components/Footer/Footer";
 import MovieInformation from "./components/MovieInformation/MovieInformation";
@@ -12,7 +11,6 @@ import useStyles from "./styles";
 
 const App = () => {
   const classes = useStyles();
-  const alanBtnContainer = useRef();
 
   return (
     <div className={classes.root}>
@@ -32,8 +30,6 @@ const App = () => {
           </div>
           <Footer />
         </main>
-        <div ref={alanBtnContainer} />
-        <UseAlan />
       </BrowserRouter>
     </div>
   );

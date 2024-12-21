@@ -14,92 +14,24 @@ import {
   Rating,
   Typography,
 } from "@mui/material";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import genreIcons from "../../assets/genres";
-import { userSelector } from "../../features/auth";
 import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
 import {
-  useGetListQuery,
   useGetMovieQuery,
-  useGetRecommendationsQuery,
 } from "../../services/TMDB";
-import MovieList from "../MovieList/MovieList";
 import useStyles from "./informationstyles";
 
 const MovieInformation = () => {
-  const { user } = useSelector(userSelector);
-  // console.log(user);
 
   const { id } = useParams();
   const { data, isFetching, error } = useGetMovieQuery(id);
 
   const classes = useStyles();
   const dispatch = useDispatch();
-
-  const { data: recommendations, isFetching: isRecommendationsFetching } =
-    useGetRecommendationsQuery({ list: "recommendations", movie_id: id });
-  // console.log(recommendations);
   const [open, setOpen] = useState(false);
-
-  const { data: favoriteMovies } = useGetListQuery({
-    listName: "favorite/movies",
-    accountId: user.id,
-    sessionId: localStorage.getItem("session_id"),
-    page: 1,
-  });
-
-  const { data: watchlistMovies } = useGetListQuery({
-    listName: "watchlist/movies",
-    accountId: user.id,
-    sessionId: localStorage.getItem("session_id"),
-    page: 1,
-  });
-
-  useEffect(() => {
-    setIsMovieFavorited(
-      !!favoriteMovies?.results?.find((movie) => movie?.id === data?.id)
-    );
-  }, [favoriteMovies, data]);
-
-  useEffect(() => {
-    setIsMovieWatchlisted(
-      !!watchlistMovies?.results?.find((movie) => movie?.id === data?.id)
-    );
-  }, [watchlistMovies, data]);
-
-  const [isMovieFavorited, setIsMovieFavorited] = useState(false);
-  const [isMovieWatchlisted, setIsMovieWatchlisted] = useState(false);
-
-  const addToFavorites = async () => {
-    await axios.post(
-      `https://api.themoviedb.org/3/account/${user.id}/favorite?api_key=${
-        process.env.REACT_APP_TMDB_KEY
-      }&session_id=${localStorage.getItem("session_id")}`,
-      {
-        media_type: "movie",
-        media_id: id,
-        favorite: !isMovieFavorited,
-      }
-    );
-    setIsMovieFavorited((prev) => !prev);
-  };
-
-  const addToWatchlist = async () => {
-    await axios.post(
-      `https://api.themoviedb.org/3/account/${user.id}/watchlist?api_key=${
-        process.env.REACT_APP_TMDB_KEY
-      }&session_id=${localStorage.getItem("session_id")}`,
-      {
-        media_type: "movie",
-        media_id: id,
-        watchlist: !isMovieWatchlisted,
-      }
-    );
-    setIsMovieWatchlisted((prev) => !prev);
-  };
 
   if (isFetching) {
     return (
@@ -119,8 +51,9 @@ const MovieInformation = () => {
       <Grid
         item
         sm={12}
+        md={4}
         lg={4}
-        style={{ display: "flex", marginBottom: "30px" }}
+        style={{margin:"0 auto",marginBottom: "30px" }}
       >
         <img
           className={classes.poster}
@@ -128,19 +61,18 @@ const MovieInformation = () => {
           alt="{ data?.title }"
         />
       </Grid>
-      <Grid item container direction="column" lg={7}>
-        <Grid item container style={{ marginTop: "2rem" }}>
+      <Grid item container direction="column" lg={7} md={7} sm={12}>
+        <Grid item container style={{ marginTop: "1rem" }}>
           <div className={classes.buttonsContainer}>
             <Grid item xs={12} sm={6} className={classes.buttonsContainer}>
               <ButtonGroup size="small" variant="outlined">
                 <Button startIcon={<ArrowBack />} className={classes.button}>
                   <Typography
-                    style={{ textDecoration: "none" }}
+                    style={{ textDecoration: "none", marginTop:"4px" }}
                     component={Link}
                     to="/"
                     color="inherit"
                     variant="subtitle2"
-                    style={{marginTop:"4px"}}
                     className={classes.font}
                   >
                     Back
@@ -335,17 +267,6 @@ const MovieInformation = () => {
           </Grid>
         </div>
       </Grid>
-
-      <Box marginTop="5rem" width="100%">
-        <Typography variant="h4" gutterBottom align="center">
-          You might also like
-        </Typography>
-        {recommendations ? (
-          <MovieList movies={recommendations} numberOfMovies={12} />
-        ) : (
-          <Box>Sorry Nothing was found</Box>
-        )}
-      </Box>
 
       <Modal
         closeAfterTransition

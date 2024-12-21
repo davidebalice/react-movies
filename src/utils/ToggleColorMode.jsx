@@ -22,6 +22,9 @@ const ToggleColorMode = ({ children }) => {
         palette: {
           mode,
         },
+        typography: {
+          fontFamily: "EmberCondensed",
+        },
       }),
     [mode]
   );

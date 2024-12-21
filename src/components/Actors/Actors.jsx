@@ -1,5 +1,12 @@
-import { ArrowBack } from "@mui/icons-material";
-import { Box, Button, CircularProgress, Grid, Typography } from "@mui/material";
+import { ArrowBack, Movie as MovieIcon } from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  CircularProgress,
+  Grid,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -40,7 +47,7 @@ const Actors = () => {
   }
   return (
     <>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} className={classes.container}>
         <Grid item lg={5} xl={4}>
           <img
             className={classes.image}
@@ -49,43 +56,43 @@ const Actors = () => {
           />
         </Grid>
 
-        <Grid
-          item
-          lg={7}
-          xl={8}
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-          }}
-        >
+        <Grid item lg={7} xl={8} className={classes.actor}>
+          <Grid item xs={12} sm={6} className={classes.buttonsContainer}>
+            <ButtonGroup size="small" variant="outlined">
+              <Button
+                startIcon={<ArrowBack />}
+                onClick={() => navigate(-1)}
+                color="primary"
+                className={classes.button}
+              >
+                Go Back
+              </Button>
+
+              <Button
+                variant="contained"
+                color="primary"
+                target="_blank"
+                className={classes.button}
+                href={`https://www.imdb.com/name/${data?.imdb_id}`}
+                startIcon={<MovieIcon />}
+              >
+                IMDB
+              </Button>
+            </ButtonGroup>
+          </Grid>
           <Typography variant="h3" gutterBottom>
             {data?.name}
           </Typography>
           <Typography variant="h5" gutterBottom>
             Born: {new Date(data?.birthday).toDateString()}
           </Typography>
-          <Typography variant="body1" align="justify" paragraph>
-            {data?.biography || "Sorry, No Biography yet..."}
+          <Typography align="justify" className={classes.biography}>
+            {data?.biography ? (
+              <span dangerouslySetInnerHTML={{ __html: data.biography }} />
+            ) : (
+              "No Biography yet..."
+            )}
           </Typography>
-
-          <Box marginTop="2rem" display="flex" justifyContent="space-around">
-            <Button
-              variant="contained"
-              color="primary"
-              target="_blank"
-              href={`https://www.imdb.com/name/${data?.imdb_id}`}
-            >
-              IMDB
-            </Button>
-            <Button
-              startIcon={<ArrowBack />}
-              onClick={() => navigate(-1)}
-              color="primary"
-            >
-              Go Back
-            </Button>
-          </Box>
         </Grid>
       </Grid>
 
